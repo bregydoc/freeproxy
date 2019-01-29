@@ -17,27 +17,23 @@ func parseDuration(durationString string) time.Duration {
 	timeNumber := chunks[0]
 	sizeDuration := chunks[1]
 
-	finalDuration := time.Minute
+	finalDuration := 1 * time.Minute
 
 	t, err := strconv.Atoi(timeNumber)
 	if err != nil {
 		return finalDuration
 	}
-	switch sizeDuration {
-	case "second":
-	case "seconds":
+	switch {
+	case sizeDuration == "second" || sizeDuration == "seconds":
 		finalDuration = time.Duration(t) * time.Second
 		break
-	case "minute":
-	case "minutes":
+	case sizeDuration == "minute" || sizeDuration == "minutes":
 		finalDuration = time.Duration(t) * time.Minute
 		break
-	case "hour":
-	case "hours":
+	case sizeDuration == "hour" || sizeDuration == "hours":
 		finalDuration = time.Duration(t) * time.Hour
 		break
-	case "day":
-	case "days":
+	case sizeDuration == "day" || sizeDuration == "days":
 		finalDuration = time.Duration(t) * time.Hour * 24
 		break
 	}
