@@ -1,6 +1,7 @@
 package freeproxy
 
 import (
+	"fmt"
 	"regexp"
 	"strconv"
 	"strings"
@@ -39,4 +40,13 @@ func parseDuration(durationString string) time.Duration {
 	}
 
 	return finalDuration
+}
+
+func getProxyLinkwithProxyEntry(p *ProxyEntry) string {
+	base := "http://%s:%s"
+	if p.HTTPS {
+		base = "https://%s:%s"
+	}
+	return fmt.Sprintf(base, p.IP, p.Port)
+
 }
