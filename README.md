@@ -1,7 +1,7 @@
 # Free Proxy ![build](https://travis-ci.org/bregydoc/freeproxy.svg?branch=master)
 Proxy a la carte
 
-This simple utility was created to use different proxies in your project. The list of proxies is extract from [Free Proxy list](https://free-proxy-list.net/) using scrapping. Freeproxy implements util functions for a rapid use of the scrapped proxy list, you can make proxy connections with env variable or http.Client.
+This simple utility was created to use different proxies in your project. The list of proxies is extract from [Free Proxy list](https://free-proxy-list.net/) using scrapping. Freeproxy implements util functions for a rapid use of the scraped proxy list, you can make proxy connections with env variable or http.Client.
 
 ## Install
 Only use go get
