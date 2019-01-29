@@ -1,6 +1,9 @@
 package freeproxy
 
-import "time"
+import (
+	"fmt"
+	"time"
+)
 
 // ProxyEntry describe an entry from https://free-proxy-list.net/
 type ProxyEntry struct {
@@ -20,4 +23,8 @@ type Filter struct {
 	SpecificCountry string
 	OnlyHTTPS       bool
 	MaxLastChecked  time.Duration
+}
+
+func (p *ProxyEntry) String() string {
+	return fmt.Sprintf("%s:%s from %s | last checked: %s", p.IP, p.Port, p.Country, p.LastChecked)
 }

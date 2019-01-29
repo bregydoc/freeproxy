@@ -3,6 +3,8 @@ package freeproxy
 import (
 	"errors"
 	"math/rand"
+	"net/http"
+	"net/url"
 	"os"
 	"time"
 )
@@ -46,4 +48,44 @@ func SetRandomProxyOnEnvVariable(filter ...Filter) (*ProxyEntry, error) {
 func SetProxyOnEnvVariable(p *ProxyEntry) {
 	proxyLink := getProxyLinkwithProxyEntry(p)
 	os.Setenv("HTTP_PROXY", proxyLink)
+}
+
+// GetProxyURL return a parsed URL native Object with proxyEntry struct
+func GetProxyURL(p *ProxyEntry) (*url.URL, error) {
+	u := getProxyLinkwithProxyEntry(p)
+	return url.Parse(u)
+}
+
+// GetRandomProxyURL return a random url go native
+func GetRandomProxyURL(filter ...Filter) (*url.URL, error) {
+	p, err := GetRandomProxy(filter...)
+	if err != nil {
+		return nil, err
+	}
+
+	return GetProxyURL(p)
+}
+
+// GetHTTPClientWithProxy return a http client with specific proxy entry
+func GetHTTPClientWithProxy(p *ProxyEntry) (*http.Client, error) {
+	proxyURL, err := GetProxyURL(p)
+	if err != nil {
+		return nil, err
+	}
+	client := &http.Client{Transport: &http.Transport{Proxy: http.ProxyURL(proxyURL)}}
+	return client, nil
+}
+
+// GetHTTPClientWithRandomProxy return a http client bsaed on random proxy
+func GetHTTPClientWithRandomProxy(filter ...Filter) (*http.Client, *ProxyEntry, error) {
+	p, err := GetRandomProxy(filter...)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	client, err := GetHTTPClientWithProxy(p)
+	if err != nil {
+		return nil, nil, err
+	}
+	return client, p, err
 }
