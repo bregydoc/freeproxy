@@ -20,7 +20,7 @@ type ProxyEntry struct {
 // Filter is an filter struct to get more accurate proxies
 type Filter struct {
 	MaxEntries      int
-	SpecificCountry string
+	SpecificCountry string // You need use country code (e.g. "US")
 	OnlyHTTPS       bool
 	MaxLastChecked  time.Duration
 }
