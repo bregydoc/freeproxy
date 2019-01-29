@@ -9,7 +9,7 @@ import (
 
 var errProxiesNotfound = errors.New("proxies filtered not found")
 
-// GetRandomProxy ...
+// GetRandomProxy returns a random proxy, you can pass filter options
 func GetRandomProxy(filter ...Filter) (*ProxyEntry, error) {
 	proxies, err := GetProxies(filter...)
 	if err != nil {
@@ -28,7 +28,7 @@ func GetRandomProxy(filter ...Filter) (*ProxyEntry, error) {
 }
 
 // SetRandomProxyOnEnvVariable set a random proxy on your env system,
-// this function return the proxy setted and you can pass filter params for
+// this function return the proxy setted and you can pass filter options for
 // more control
 func SetRandomProxyOnEnvVariable(filter ...Filter) (*ProxyEntry, error) {
 	p, err := GetRandomProxy(filter...)
